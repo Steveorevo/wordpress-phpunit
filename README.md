@@ -25,4 +25,43 @@ This is a blueprint for DesktopServer + DS-CLI that automates plugin, theme deve
 2. Select the "WordPress-PHPUnit" blueprint from the blueprint dropdown combobox.
 3. Fill out the ./tests/bootstrap.php and test-sample.php with your theme or plugin.
 
+## Example
+In the following example we'll check to see that we're using the Twenty Fifteen theme,
+specifically version 1.5 and that the Hello Dolly plugin is active:
 
+tests/bootstrap.php contains:
+```
+<?php
+
+require_once dirname( dirname( __FILE__ ) ) . '/includes/functions.php';
+function _manually_load_environment() {
+
+	// Add your theme
+	switch_theme( "twentyfifteen" );
+
+	// Update array with plugins to include ...
+	$plugins_to_active = array(
+            "hello.php"
+        );
+
+	update_option( 'active_plugins', $plugins_to_active );
+
+}
+tests_add_filter( 'muplugins_loaded', '_manually_load_environment' );
+
+require dirname( dirname( __FILE__ ) ) . '/includes/bootstrap.php';
+```
+
+tests/test-sample.php contains:
+```
+<?php
+class SampleTest extends WP_UnitTestCase {
+	function testSample() {
+		$this->assertTrue( 'twentyfifteen' == wp_get_theme()->template );
+		$this->assertTrue( '1.5' == wp_get_theme()->version );
+		$this->assertTrue(
+			is_plugin_active('hello.php')
+		);
+	}
+}
+```
