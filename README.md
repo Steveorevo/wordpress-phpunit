@@ -16,8 +16,8 @@ This is a blueprint for DesktopServer + DS-CLI that automates plugin, theme deve
 
 1. Download the release zip file (preferably as a zip, no need to uncompress)
 2. Place the file in your blueprints folder:
-   a) On Macintosh at /Applications/XAMPP/blueprints
-   b) On Windows at c:\xampplite\blueprints
+   * On Macintosh at /Applications/XAMPP/blueprints
+   * On Windows at c:\xampplite\blueprints
 
 ## Usage
 
